@@ -20,7 +20,7 @@ PCF.port = [False,False,False,False,False,False,False,False,False,False,False,Fa
 # Get all (16) PCF inputs
 print(PCF.port)
 
-# Set bit/output 0 to HIGH
+# Set bit/output P00 to HIGH
 PCF.port[0] = True
 
 # fill / unfill bits/outputs
