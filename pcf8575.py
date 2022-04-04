@@ -84,7 +84,7 @@ class PCF8575(object):
         new_state = 0
         for i, val in enumerate(value):
             if val:
-                new_state |= 1 << 15-i
+                new_state |= 1 << i
         self.bus.write_byte_data(self.address, new_state & 0xffff, (new_state >> 8) & 0xffff)
 
     def set_output(self, output_number, value):
@@ -93,7 +93,7 @@ class PCF8575(object):
         """
         assert output_number in range(16), "Output number must be an integer between 0 and 15"
         current_state = self.bus.read_word_data(self.address, 0)
-        bit = 1 << 15-output_number
+        bit = 1 << output_number
         new_state = current_state | bit if value else current_state & (~bit & 0xffff)
         self.bus.write_byte_data(self.address, new_state & 0xffff, (new_state >> 8) & 0xffff)
 
@@ -103,4 +103,4 @@ class PCF8575(object):
         """
         assert pin_number in range(16), "Pin number must be an integer between 0 and 15"
         state = self.bus.read_word_data(self.address, 0)
-        return bool(state & 1<<15-pin_number)
+        return bool(state & 1 << pin_number)

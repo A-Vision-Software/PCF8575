@@ -23,9 +23,12 @@ print(PCF.port)
 # Set bit/output 0 to HIGH
 PCF.port[0] = True
 
+# fill / unfill bits/outputs
 while True:
-    # flashing bit/output 0
-	PCF.port[0] = False
-	sleep(0.1)
-	PCF.port[0] = True
-	sleep(0.1)
+    for i in range(16):
+        PCF.port[i] = True
+        sleep(0.1)
+
+    for i in range(15, 0, -1):
+        PCF.port[i] = False
+        sleep(0.1)
