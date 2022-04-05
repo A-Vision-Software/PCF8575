@@ -17,18 +17,28 @@ PCF.port = [True,True,True,True,True,True,True,True,True,True,True,True,True,Tru
 # set all inouts LOW
 PCF.port = [False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False]
 
-# Get all (16) PCF inputs
+# Read all (16) PCF inputs
 print(PCF.port)
+# Read PCF input P14
+print(PCF.port[12])
 
 # Set bit/output P00 to HIGH
 PCF.port[0] = True
 
-# fill / unfill bits/outputs
+# fill/unfill bits/outputs
 while True:
-    for i in range(16):
-        PCF.port[i] = True
+    for i in range(8):
+        PCF.port[i] = True  # Set output P00..P07 HIGH
+
+        for i in range(8, 12):
+            PCF.port[i] = PCF.port[i+4] # Read input P14..P17 and Set output P10..P13
+
         sleep(0.1)
 
-    for i in range(15, 0, -1):
-        PCF.port[i] = False
+    for i in range(7, 0, -1):
+        PCF.port[i] = False  # Set output P00..P07 LOW
+
+        for i in range(8, 12):
+            PCF.port[i] = PCF.port[i+4] # Read input P14..P17 and Set output P10..P13
+
         sleep(0.1)
